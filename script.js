@@ -8,14 +8,14 @@ const form = document.querySelector("form");
 
 
 // LOCAL STORAGE CODE ---- ADDING TO THE LIST FROM THE LOCAL STORAGE
-if (localStorage.getItem("itemNumber") == null) { // if there is no itemNumber key in the local storage already, set itemNumber to 0, otherwise set it to what the itemNumber is and add local storage items
-    var itemNumber = 0;
+if (localStorage.getItem("maxItemNumber") == null) { // if there is no maxItemNumber key in the local storage already, set maxItemNumber to 0, otherwise set it to what the maxItemNumber is and add local storage items
+    var maxItemNumber = 0;
 }
 else {
-    var itemNumber = localStorage.getItem("itemNumber");
+    var maxItemNumber = localStorage.getItem("maxItemNumber");
     textBox.classList.remove("hidden");
 
-    for (let currentItemNum = 1; currentItemNum <= itemNumber; currentItemNum++) { // loops through local storage items
+    for (let currentItemNum = 1; currentItemNum <= maxItemNumber; currentItemNum++) { // loops through local storage items
         if (localStorage.getItem(`item${currentItemNum}`) != null) { // adds to the list only if there is actually an item at the current item number
             const listContent = document.createElement("li");
             listContent.innerText = localStorage.getItem(`item${currentItemNum}`);
@@ -46,10 +46,10 @@ const addToList = (event) => {
     list.append(listContent);
 
     // adds the added list items to the local storage and increases item number by 1
-    localStorage.setItem(`item${++itemNumber}`, listContent.innerText);
-    localStorage.setItem("itemNumber", itemNumber);
+    localStorage.setItem(`item${++maxItemNumber}`, listContent.innerText);
+    localStorage.setItem("maxItemNumber", maxItemNumber);
 
-    listContent.setAttribute("id", itemNumber); // sets the ID of the item just added to the list (so that it can be removed from local storage when removed from the list)
+    listContent.setAttribute("id", maxItemNumber); // sets the ID of the item just added to the list (so that it can be removed from local storage when removed from the list)
 
     listContent.addEventListener("click", () => { // adds an event listener to the listContent list element that was just created, and when clicked, removes it from the list and local storage
 
@@ -72,7 +72,7 @@ const clearList = () => {
     })
 
     localStorage.clear(); // removes everything from the local storage
-    itemNumber = 0;
+    maxItemNumber = 0;
 };
 
 
